@@ -1,6 +1,6 @@
 # NestJS Rest Template :rocket:
 
-The goal of this project is provide a quickly solution to start your project in NestJS.
+The goal of this project is to provide a fast and robust solution to start your project in NestJS.
 
 ## Features
 
