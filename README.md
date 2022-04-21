@@ -2,6 +2,15 @@
 
 The goal of this project is to provide a fast and robust solution to start your project in NestJS.
 
+## How to start using this project?
+
+1. Clone repo: `git@github.com:Alejandrehl/nestjs-rest-template.git`
+2. Create .env file: `cp .env.example .env`
+3. Setup your environment variables in `.env` file.
+4. Change `name`, `version`, `description` and `author` in `package.json` file.
+5. Install dependencies: `yarn install`
+6. Run project: `yarn start:dev`
+
 ## Features
 
 1. OpenAPI (Swagger)
