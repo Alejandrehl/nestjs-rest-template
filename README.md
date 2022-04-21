@@ -19,8 +19,8 @@ The goal of this project is to provide a fast and robust solution to start your 
 5. [@ntegral/nestjs-sendgrid](https://yarnpkg.com/package/@ntegral/nestjs-sendgrid): Injectable SendGrid client for your nestjs projects.
 6. [mongoose](https://yarnpkg.com/package/mongoose): Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment. Mongoose supports both promises and callbacks.
 7. [@typegoose/typegoose](https://yarnpkg.com/package/@typegoose/typegoose): Define Mongoose models using TypeScript classes.
-8. [@nestjs/axios](https://yarnpkg.com/package/@nestjs/axios): Axios module for Nest originally published as part of the @nestjs/common package. This package is a drop-in replacement for deprecated HttpModule.
 
 ## Technical Debt
 
 1. Testing
+2. HealthCheck

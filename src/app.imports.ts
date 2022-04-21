@@ -1,6 +1,5 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
-import { TerminusModule } from '@nestjs/terminus';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { SendGridModule } from '@ntegral/nestjs-sendgrid';
 
@@ -28,5 +27,4 @@ export const AppImports = [
     }),
     inject: [ConfigService],
   }),
-  TerminusModule,
 ];
