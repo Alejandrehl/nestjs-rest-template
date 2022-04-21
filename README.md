@@ -4,7 +4,7 @@ The goal of this project is to provide a fast and robust solution to start your 
 
 ## Features
 
-1. Swagger(OpenAPI)
+1. OpenAPI (Swagger)
 2. MongoDB
 3. Typegosee
 4. JWT
@@ -19,6 +19,8 @@ The goal of this project is to provide a fast and robust solution to start your 
 5. [@ntegral/nestjs-sendgrid](https://yarnpkg.com/package/@ntegral/nestjs-sendgrid): Injectable SendGrid client for your nestjs projects.
 6. [mongoose](https://yarnpkg.com/package/mongoose): Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment. Mongoose supports both promises and callbacks.
 7. [@typegoose/typegoose](https://yarnpkg.com/package/@typegoose/typegoose): Define Mongoose models using TypeScript classes.
+8. [@nestjs/swagger](https://yarnpkg.com/package/@nestjs/swagger): OpenAPI (Swagger) module for Nest.
+9. [swagger-ui-express](https://yarnpkg.com/package/swagger-ui-express)
 
 ## Technical Debt
 
