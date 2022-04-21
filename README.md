@@ -30,6 +30,8 @@ The goal of this project is to provide a fast and robust solution to start your 
 7. [@typegoose/typegoose](https://yarnpkg.com/package/@typegoose/typegoose): Define Mongoose models using TypeScript classes.
 8. [@nestjs/swagger](https://yarnpkg.com/package/@nestjs/swagger): OpenAPI (Swagger) module for Nest.
 9. [swagger-ui-express](https://yarnpkg.com/package/swagger-ui-express)
+10. [bcryptjs](https://yarnpkg.com/package/bcrypt): A bcrypt library for NodeJS.
+11. [class-validator](https://yarnpkg.com/package/class-validator): Allows use of decorator and non-decorator based validation. Internally uses [validator.js](https://yarnpkg.com/package/validator) to perform validation. Class-validator works on both browser and node.js platforms.
 
 ## Technical Debt
 
