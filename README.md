@@ -12,6 +12,12 @@ The goal of this project is to provide a fast and robust solution to start your 
 
 ## Libraries and dependencies
 
+1. [@nestjs/config](https://yarnpkg.com/package/@nestjs/config): Configuration module for Nest based on the dotenv (to load process environment variables) package.
+2. [@nestjs/schedule](https://yarnpkg.com/package/nestjs-schedule): Distributed Schedule module for Nest based on the node-schedule package.
+3. [@nestjs/terminus](https://yarnpkg.com/package/@nestjs/terminus): This module contains integrated healthchecks for Nest.
+4. [nestjs-typegoose](https://yarnpkg.com/package/nestjs-typegoose): Injects typegoose models for nest components and controllers. Typegoose equivalant for @nestjs/mongoose.
+5. [@ntegral/nestjs-sendgrid](https://yarnpkg.com/package/@ntegral/nestjs-sendgrid): Injectable SendGrid client for your nestjs projects.
+
 ## Technical Debt
 
 1. Testing

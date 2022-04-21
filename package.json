@@ -1,8 +1,8 @@
 {
   "name": "nestjs-rest-template",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "NestJS Rest Template",
+  "author": "Alejandro Exequiel Hernández Lara",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -22,8 +22,13 @@
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
+    "@nestjs/config": "^2.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/schedule": "^1.1.0",
+    "@nestjs/terminus": "^8.0.6",
+    "@ntegral/nestjs-sendgrid": "^1.0.0",
+    "nestjs-typegoose": "^7.1.38",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
