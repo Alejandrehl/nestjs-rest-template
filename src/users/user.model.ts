@@ -4,7 +4,6 @@ import * as bcrypt from 'bcryptjs';
 import * as mongoose from 'mongoose';
 
 export class User {
-  @prop()
   _id: mongoose.Schema.Types.ObjectId;
 
   @IsString()

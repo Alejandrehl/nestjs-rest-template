@@ -31,6 +31,7 @@ export class AuthService {
   }> {
     const { name, lastName, email, phoneNumber, password, confirmPassword } =
       registerUserDto;
+    console.log({ registerUserDto });
 
     if (password !== confirmPassword) {
       throw new BadRequestException('Las contraseñas no coinciden.');
@@ -51,6 +52,7 @@ export class AuthService {
     user.password = await AuthHelpers.hashPassword(password, user.salt);
     user.emailValidationCode = AuthHelpers.getRandomEmailValidationCode();
     user.phoneValidationCode = AuthHelpers.getRandomPhoneValidationCode();
+    console.log({ userPassword: user.password });
 
     try {
       const createdUser = new this.userModel(user);
@@ -61,7 +63,7 @@ export class AuthService {
       return {
         accessToken,
         email,
-        emailValidationCode: createdUser.emailValidationCode,
+        emailValidationCode: user.emailValidationCode,
       };
     } catch (e) {
       throw new InternalServerErrorException(e.message);
@@ -108,13 +110,16 @@ export class AuthService {
 
     const user = await this.userModel
       .findOne({ email })
-      .select('-password -salt -__v')
+      .select('-password -__v')
       .exec();
+    console.log('1', { user });
 
     if (user && (await user.validatePassword(password))) {
+      console.log('2', { user });
       return user;
     }
 
+    console.log('3', { user });
     return null;
   }
 }
