@@ -50,12 +50,14 @@ export class AuthService {
     user.salt = await bcrypt.genSalt();
     user.password = await AuthHelpers.hashPassword(password, user.salt);
     user.emailValidationCode = AuthHelpers.getRandomEmailValidationCode();
-    user.phoneNumber = AuthHelpers.getRandomPhoneValidationCode();
+    user.phoneValidationCode = AuthHelpers.getRandomPhoneValidationCode();
 
     try {
       const createdUser = new this.userModel(user);
       await createdUser.save();
+
       const { accessToken } = await this.signIn({ email, password });
+
       return {
         accessToken,
         email,

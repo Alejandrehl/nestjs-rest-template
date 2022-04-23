@@ -21,6 +21,7 @@ export class AuthController {
   ) {}
 
   @Post('/signup')
+  @ApiOperation({ summary: 'Register a new user' })
   async signUp(
     @Body(ValidationPipe) registerUserDto: RegisterUserDto,
   ): Promise<{ accessToken: string }> {
