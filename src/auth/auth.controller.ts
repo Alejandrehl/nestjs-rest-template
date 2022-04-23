@@ -8,6 +8,7 @@ import {
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { EmailService } from 'src/email/email.service';
 import { AuthService } from './auth.service';
+import { LoginUserDto } from './dto/login-user.dto';
 import { PasswordRecoveryDto } from './dto/password-recovery.dto';
 
 @ApiTags('Authentication')
@@ -17,6 +18,14 @@ export class AuthController {
     private authService: AuthService,
     private emailService: EmailService,
   ) {}
+
+  @Post('/signin')
+  @ApiOperation({ summary: 'Login user with email and password' })
+  signIn(
+    @Body(ValidationPipe) loginUserDto: LoginUserDto,
+  ): Promise<{ accessToken: string }> {
+    return this.authService.signIn(loginUserDto);
+  }
 
   @Post('/password-recovery')
   @ApiOperation({ summary: 'Password recovery' })

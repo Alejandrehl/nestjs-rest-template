@@ -8,6 +8,7 @@ import {
 import { ReturnModelType } from '@typegoose/typegoose';
 import * as bcrypt from 'bcryptjs';
 import { InjectModel } from 'nestjs-typegoose';
+import { LoginUserDto } from 'src/auth/dto/login-user.dto';
 import { User } from './user.model';
 
 @Injectable()

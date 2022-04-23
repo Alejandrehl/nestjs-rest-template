@@ -1,15 +1,35 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
 import * as bcrypt from 'bcryptjs';
 import { User } from 'src/users/user.model';
 import { PasswordRecoveryDto } from './dto/password-recovery.dto';
+import { LoginUserDto } from './dto/login-user.dto';
+import { AuthHelpers } from 'src/helpers/auth.helpers';
+import { JwtPayload } from './jwt-payload.interface';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User) private readonly userModel: ReturnModelType<typeof User>,
+    private jwtService: JwtService,
   ) {}
+
+  async signIn(loginUserDto: LoginUserDto): Promise<{ accessToken: string }> {
+    const user = await this.validateUserPassword(loginUserDto);
+
+    if (!user) throw new UnauthorizedException('Credenciales inválidas');
+
+    const payload: JwtPayload = user;
+    const accessToken = this.jwtService.sign(payload);
+
+    return { accessToken };
+  }
 
   async passwordRecovery(
     passwordRecoveryDto: PasswordRecoveryDto,
@@ -24,20 +44,29 @@ export class AuthService {
       );
     }
 
-    const newPassword = this.getRandomPassword();
+    const newPassword = AuthHelpers.getRandomPassword();
 
     user.salt = await bcrypt.genSalt();
-    user.password = await this.hashPassword(newPassword, user.salt);
+    user.password = await AuthHelpers.hashPassword(newPassword, user.salt);
     await user.save();
 
     return { newPassword };
   }
 
-  private getRandomPassword(): string {
-    return Math.random().toString(36).slice(-8).toLowerCase();
-  }
+  private async validateUserPassword(
+    loginUserDto: LoginUserDto,
+  ): Promise<User | null> {
+    const { email, password } = loginUserDto;
 
-  private async hashPassword(password: string, salt: string) {
-    return bcrypt.hash(password, salt);
+    const user = await this.userModel
+      .findOne({ email })
+      .select('-password -salt -__v')
+      .exec();
+
+    if (user && (await user.validatePassword(password))) {
+      return user;
+    }
+
+    return null;
   }
 }
