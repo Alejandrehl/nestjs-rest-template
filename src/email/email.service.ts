@@ -35,9 +35,10 @@ export class EmailService {
       subject: `Recuperación de contraseña`,
       text: 'Haz recuperado tu contraseña',
       html: `<div>
-          <label>Hola ${to} te enviamos tu nueva contraseña, 
+          <label>Hola ${to} te enviamos tu nueva contraseña <strong>${newPassword}</strong>, 
               una vez ingresado al sitio podrás cambiarla 
-              cuando quieras: <strong>${newPassword}</strong></label>
+              cuando quieras.</label>
+          <br />
           <br />
           <label>Saludos</label>
         </div>`,
