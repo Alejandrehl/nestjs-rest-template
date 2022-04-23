@@ -32,6 +32,9 @@ The goal of this project is to provide a fast and robust solution to start your 
 9. [swagger-ui-express](https://yarnpkg.com/package/swagger-ui-express)
 10. [bcryptjs](https://yarnpkg.com/package/bcrypt): A bcrypt library for NodeJS.
 11. [class-validator](https://yarnpkg.com/package/class-validator): Allows use of decorator and non-decorator based validation. Internally uses [validator.js](https://yarnpkg.com/package/validator) to perform validation. Class-validator works on both browser and node.js platforms.
+12. [BcryptJS](https://yarnpkg.com/package/bcryptjs): Optimized bcrypt in plain JavaScript with zero dependencies. Compatible to 'bcrypt'.
+13. [@nestjs/passport](https://yarnpkg.com/package/@nestjs/passport): Passport utilities module for Nest.
+14. [passport-jwt](https://yarnpkg.com/package/passport-jwt): Passport authentication strategy using JSON Web Tokens.
 
 ## Technical Debt
 
