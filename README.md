@@ -35,6 +35,9 @@ The goal of this project is to provide a fast and robust solution to start your 
 12. [BcryptJS](https://yarnpkg.com/package/bcryptjs): Optimized bcrypt in plain JavaScript with zero dependencies. Compatible to 'bcrypt'.
 13. [@nestjs/passport](https://yarnpkg.com/package/@nestjs/passport): Passport utilities module for Nest.
 14. [passport-jwt](https://yarnpkg.com/package/passport-jwt): Passport authentication strategy using JSON Web Tokens.
+15. [@nestjs/jwt](https://yarnpkg.com/package/@nestjs/jwt): JWT utilities module for Nest based on the jsonwebtoken package.
+16. [passport](https://yarnpkg.com/package/passport): Simple, unobtrusive authentication for Node.js.
+17. [class-transformer](class-transformer): Proper decorator-based transformation / serialization / deserialization of plain javascript objects to class constructors.
 
 ## Technical Debt
 

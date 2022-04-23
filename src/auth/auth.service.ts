@@ -3,6 +3,7 @@ import { ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
 import * as bcrypt from 'bcryptjs';
 import { User } from 'src/users/user.model';
+import { PasswordRecoveryDto } from './dto/password-recovery.dto';
 
 @Injectable()
 export class AuthService {
@@ -10,12 +11,16 @@ export class AuthService {
     @InjectModel(User) private readonly userModel: ReturnModelType<typeof User>,
   ) {}
 
-  async passwordRecovery(email: string): Promise<{ newPassword: string }> {
-    const user = await this.userModel.findOne({ email });
+  async passwordRecovery(
+    passwordRecoveryDto: PasswordRecoveryDto,
+  ): Promise<{ newPassword: string }> {
+    const user = await this.userModel.findOne({
+      email: passwordRecoveryDto.email,
+    });
 
     if (!user) {
       throw new NotFoundException(
-        `Usuario con correo electrónico ${email} no encontrado.`,
+        `Usuario con correo electrónico ${passwordRecoveryDto.email} no encontrado.`,
       );
     }
 
