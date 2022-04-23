@@ -1,5 +1,8 @@
 import {
+  BadRequestException,
+  ConflictException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -12,6 +15,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { AuthHelpers } from 'src/helpers/auth.helpers';
 import { JwtPayload } from './jwt-payload.interface';
 import { JwtService } from '@nestjs/jwt';
+import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -19,6 +23,48 @@ export class AuthService {
     @InjectModel(User) private readonly userModel: ReturnModelType<typeof User>,
     private jwtService: JwtService,
   ) {}
+
+  async signUp(registerUserDto: RegisterUserDto): Promise<{
+    accessToken: string;
+    email: string;
+    emailValidationCode: string;
+  }> {
+    const { name, lastName, email, phoneNumber, password, confirmPassword } =
+      registerUserDto;
+
+    if (password !== confirmPassword) {
+      throw new BadRequestException('Las contraseñas no coinciden.');
+    }
+
+    const userExists = await this.userModel.findOne({ email });
+
+    if (userExists) {
+      throw new ConflictException('Correo electrónico registrado previamente');
+    }
+
+    const user = new User();
+    user.name = name;
+    user.lastName = lastName;
+    user.email = email;
+    user.phoneNumber = phoneNumber;
+    user.salt = await bcrypt.genSalt();
+    user.password = await AuthHelpers.hashPassword(password, user.salt);
+    user.emailValidationCode = AuthHelpers.getRandomEmailValidationCode();
+    user.phoneNumber = AuthHelpers.getRandomPhoneValidationCode();
+
+    try {
+      const createdUser = new this.userModel(user);
+      await createdUser.save();
+      const { accessToken } = await this.signIn({ email, password });
+      return {
+        accessToken,
+        email,
+        emailValidationCode: createdUser.emailValidationCode,
+      };
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
+  }
 
   async signIn(loginUserDto: LoginUserDto): Promise<{ accessToken: string }> {
     const user = await this.validateUserPassword(loginUserDto);

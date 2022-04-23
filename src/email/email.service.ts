@@ -7,12 +7,7 @@ export class EmailService {
     @InjectSendGrid() private readonly sendgridClient: SendGridService,
   ) {}
 
-  async sendWelcomeMessage(
-    to: string,
-    email: string,
-    password: string,
-    emailValidationCode: string,
-  ) {
+  async sendWelcomeMessage(to: string, emailValidationCode: string) {
     return await this.sendgridClient.send({
       to,
       from: process.env.SENDGRID_FROM_EMAIL,
@@ -24,8 +19,7 @@ export class EmailService {
             <br />
             <label>Los datos de tu nueva cuenta son:</label>
             <ul>
-                <li>Correo electrónico: ${email}</li>
-                <li>Contraseña: ${password}</li>
+                <li>Correo electrónico de acceso: ${to}</li>
                 <li>Código para válidar tu correo electrónico: ${emailValidationCode}</li>
             </ul>
             <br />
