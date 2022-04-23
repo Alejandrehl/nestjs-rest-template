@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export interface JwtPayload {
+export class JwtPayloadDto {
   _id: mongoose.Schema.Types.ObjectId;
   name: string;
   lastName: string;

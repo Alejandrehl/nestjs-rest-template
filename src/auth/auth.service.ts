@@ -13,9 +13,9 @@ import { User } from 'src/users/user.model';
 import { PasswordRecoveryDto } from './dto/password-recovery.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { AuthHelpers } from 'src/helpers/auth.helpers';
-import { JwtPayload } from './jwt-payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { JwtPayloadDto } from './dto/jwt-payload.dto';
 
 @Injectable()
 export class AuthService {
@@ -31,7 +31,6 @@ export class AuthService {
   }> {
     const { name, lastName, email, phoneNumber, password, confirmPassword } =
       registerUserDto;
-    console.log({ registerUserDto });
 
     if (password !== confirmPassword) {
       throw new BadRequestException('Las contraseñas no coinciden.');
@@ -52,7 +51,6 @@ export class AuthService {
     user.password = await AuthHelpers.hashPassword(password, user.salt);
     user.emailValidationCode = AuthHelpers.getRandomEmailValidationCode();
     user.phoneValidationCode = AuthHelpers.getRandomPhoneValidationCode();
-    console.log({ userPassword: user.password });
 
     try {
       const createdUser = new this.userModel(user);
@@ -71,11 +69,10 @@ export class AuthService {
   }
 
   async signIn(loginUserDto: LoginUserDto): Promise<{ accessToken: string }> {
-    const user = await this.validateUserPassword(loginUserDto);
+    const payload = await this.validateUserPassword(loginUserDto);
 
-    if (!user) throw new UnauthorizedException('Credenciales inválidas');
+    if (!payload) throw new UnauthorizedException('Credenciales inválidas');
 
-    const payload: JwtPayload = user;
     const accessToken = this.jwtService.sign(payload);
 
     return { accessToken };
@@ -105,21 +102,26 @@ export class AuthService {
 
   private async validateUserPassword(
     loginUserDto: LoginUserDto,
-  ): Promise<User | null> {
+  ): Promise<JwtPayloadDto> {
     const { email, password } = loginUserDto;
-
-    const user = await this.userModel
-      .findOne({ email })
-      .select('-password -__v')
-      .exec();
-    console.log('1', { user });
+    const user = await this.userModel.findOne({ email }).exec();
 
     if (user && (await user.validatePassword(password))) {
-      console.log('2', { user });
-      return user;
+      return {
+        _id: user._id,
+        name: user.name,
+        lastName: user.lastName,
+        email: user.email,
+        emailValidationCode: user.emailValidationCode,
+        isValidEmail: user.isValidEmail,
+        phoneNumber: user.phoneNumber,
+        phoneValidationCode: user.phoneValidationCode,
+        isValidPhone: user.isValidPhone,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      };
     }
 
-    console.log('3', { user });
     return null;
   }
 }
