@@ -1,5 +1,5 @@
 import { prop } from '@typegoose/typegoose';
-import { IsDate, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsString } from 'class-validator';
 import * as bcrypt from 'bcryptjs';
 import * as mongoose from 'mongoose';
 
@@ -18,6 +18,26 @@ export class User {
   @IsString()
   @prop({ unique: true, required: true })
   email: string;
+
+  @IsString()
+  @prop({ required: true })
+  emailValidationCode: string;
+
+  @IsBoolean()
+  @prop({ default: false })
+  isValidEmail: boolean;
+
+  @IsString()
+  @prop({ unique: true, required: true })
+  phoneNumber: string;
+
+  @IsString()
+  @prop({ required: true })
+  phoneValidationCode: string;
+
+  @IsBoolean()
+  @prop({ default: false })
+  isValidPhone: boolean;
 
   @IsString()
   @prop({ required: true, hidden: true })
